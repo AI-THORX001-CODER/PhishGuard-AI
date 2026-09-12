@@ -83,9 +83,11 @@ phisguard ai/
 This project was collaboratively developed by a team of three members, with each member contributing to different aspects of the system.
 | Team Member | Role | Key Contributions |
 |---|---|---|
-| **Tarun Kushwah** | Backend & Machine Learning | ML model development, URL feature extraction, model training and prediction logic |
-| **Abhijeet Singh Rajawat** | Backend & Database | Backend integration, database management, API support and data handling |
-| **Dev Kumar Prajapati** | Frontend, UI/UX & Design | Frontend development, responsive UI/UX design, user interaction, scan history and frontend-backend integration |
+| Person   | Name                       | Contribution                                                   |
+| -------- | -------------------------- | -------------------------------------------------------------- |
+| Person 1 | **Abhijeet Singh Rajawat** | Dataset, Data Analysis, Feature Engineering & Machine Learning |
+| Person 2 | **Tarun Kushwah**          | Project Integration, Testing & Development                     |
+| Person 3 | **Dev Prajapati**          | Frontend Development                                           |
 
 ### 🤝 Collaboration
 
