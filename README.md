@@ -105,6 +105,22 @@ Open `index.html` in a browser. The scanner sends URLs to the local Flask backen
 4. A confidence score and risk level are displayed with detection reasons
 5. The scan is saved to browser history
 
+## 👥 Team & Contributions
+
+This project was collaboratively developed by a team of three members, with each member contributing to different aspects of the system.
+
+| Team Member | Role | Key Contributions |
+|---|---|---|
+| **Tarun Kushwah** | Backend & Machine Learning | ML model development, URL feature extraction, model training and prediction logic |
+| **Abhijeet Singh Rajawat** | Backend & Database | Backend integration, database management, API support and data handling |
+| **Dev Kumar Prajapati** | Frontend, UI/UX & Design | Frontend development, responsive UI/UX design, user interaction, scan history and frontend-backend integration |
+
+### 🤝 Collaboration
+
+The project was developed through collaborative efforts involving machine learning, backend development, database management, frontend engineering, and UI/UX design.
+
+
+
 ## License
 
 © 2026 ATD CyberGuard / PhishGuard AI
