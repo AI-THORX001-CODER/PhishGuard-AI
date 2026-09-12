@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>History - PhishGuard AI</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- History page button fix -->
+    <style>
+        /* Export CSV button */
+        #exportCsvButton {
+            padding: 11px 16px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--text-muted);
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition:
+                color 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.1s ease;
+        }
+
+        #exportCsvButton:hover {
+            color: var(--text);
+            background: var(--surface-2);
+            border-color: var(--amber);
+        }
+
+        #exportCsvButton:active {
+            transform: scale(0.95);
+        }
+
+        /* Keep buttons visually consistent */
+        #clearHistoryButton {
+            padding: 11px 16px;
+            border: 1px solid var(--danger-bg);
+            border-radius: var(--radius-sm);
+            background: transparent;
+            color: var(--danger);
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition:
+                color 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.1s ease;
+        }
+
+        #clearHistoryButton:hover {
+            background: var(--danger-bg);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        #clearHistoryButton:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon" aria-hidden="true"></span>
+            PhishGuard AI
+        </div>
+
+
+        <div class="nav-links" id="navLinks">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a
+                href="history.html"
+                class="active"
+                aria-current="page">
+                History
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+        </div>
+
+
+        <button
+            class="nav-toggle"
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+            aria-controls="navLinks">
+
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+
+        </button>
+
+    </nav>
+
+
+
+    <!-- ================= HISTORY PAGE ================= -->
+
+    <main class="history-container">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <section class="history-header">
+
+            <span class="section-eyebrow">
+                SCAN HISTORY
+            </span>
+
+            <h1>
+                Your scan history
+            </h1>
+
+            <p>
+                Review and manage your previous URL scans.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================= STATS ================= -->
+
+        <section class="history-stats">
+
+
+            <div class="history-stat-card">
+
+                <span>
+                    Total scans
+                </span>
+
+                <strong id="statTotal">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="history-stat-card safe">
+
+                <span>
+                    Safe
+                </span>
+
+                <strong id="statSafe">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="history-stat-card danger">
+
+                <span>
+                    Suspicious
+                </span>
+
+                <strong id="statPhishing">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="history-stat-card">
+
+                <span>
+                    Avg. confidence
+                </span>
+
+                <strong id="statConfidence">
+                    0%
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= ANALYTICS ================= -->
+
+        <section class="history-analytics">
+
+
+            <!-- SAFETY RATIO -->
+
+            <div class="analytics-card">
+
+                <h3>
+                    Safety Ratio
+                </h3>
+
+
+                <div class="ratio-chart">
+
+                    <svg viewBox="0 0 120 120">
+
+                        <circle
+                            class="ratio-track"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+
+                        <circle
+                            id="ratioSafeArc"
+                            class="ratio-safe"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                    </svg>
+
+
+                    <div class="ratio-label">
+
+                        <strong id="ratioSafePercent">
+                            0%
+                        </strong>
+
+                        <span>
+                            Safe
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ratio-legend">
+
+
+                    <div class="legend-item safe">
+
+                        <i></i>
+
+                        <span>
+                            Safe
+                        </span>
+
+                        <strong id="legendSafeCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="legend-item danger">
+
+                        <i></i>
+
+                        <span>
+                            Suspicious
+                        </span>
+
+                        <strong id="legendDangerCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 7 DAY ACTIVITY -->
+
+            <div class="analytics-card">
+
+                <h3>
+                    7-Day Activity
+                </h3>
+
+
+                <div
+                    id="activityChart"
+                    class="activity-chart">
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= FILTERS ================= -->
+
+        <section class="history-filters">
+
+
+            <button
+                class="filter-btn active"
+                data-filter="ALL"
+                type="button">
+
+                All
+
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-filter="SAFE"
+                type="button">
+
+                Safe
+
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-filter="PHISHING"
+                type="button">
+
+                Suspicious
+
+            </button>
+
+        </section>
+
+
+
+        <!-- ================= TOOLBAR ================= -->
+
+        <section class="history-toolbar">
+
+
+            <!-- SEARCH -->
+
+            <div class="history-search">
+
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round">
+
+                    <circle
+                        cx="11"
+                        cy="11"
+                        r="7">
+                    </circle>
+
+                    <path
+                        d="M16.5 16.5L21 21">
+                    </path>
+
+                </svg>
+
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search URL..."
+                    autocomplete="off">
+
+
+                <button
+                    id="searchClearButton"
+                    type="button"
+                    aria-label="Clear search">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <!-- SORT -->
+
+            <select
+                id="sortSelect"
+                class="sort-select">
+
+                <option value="newest">
+                    Newest first
+                </option>
+
+                <option value="oldest">
+                    Oldest first
+                </option>
+
+                <option value="risk-desc">
+                    Highest risk
+                </option>
+
+                <option value="confidence-desc">
+                    Highest confidence
+                </option>
+
+            </select>
+
+
+
+            <!-- EXPORT -->
+
+            <button
+                id="exportCsvButton"
+                type="button">
+
+                Export CSV
+
+            </button>
+
+
+
+            <!-- CLEAR HISTORY -->
+
+            <button
+                id="clearHistoryButton"
+                type="button">
+
+                Clear history
+
+            </button>
+
+        </section>
+
+
+
+        <!-- ================= HISTORY TABLE ================= -->
+
+        <section class="history-table-container">
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            URL
+                        </th>
+
+                        <th>
+                            Result
+                        </th>
+
+                        <th>
+                            Confidence
+                        </th>
+
+                        <th>
+                            Date & Time
+                        </th>
+
+                        <th class="actions-col">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="historyTable">
+                </tbody>
+
+            </table>
+
+
+
+            <!-- ================= EMPTY HISTORY ================= -->
+
+            <div
+                id="emptyHistory"
+                class="empty-history hidden">
+
+
+                <div class="empty-icon">
+                    🔍
+                </div>
+
+
+                <h2 id="emptyHistoryTitle">
+                    No scan history
+                </h2>
+
+
+                <p id="emptyHistoryText">
+                    You haven't scanned any URLs yet.
+                </p>
+
+
+                <a
+                    id="emptyHistoryAction"
+                    href="index.html"
+                    class="scan-history-button">
+
+                    Scan a URL
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= CLEAR HISTORY MODAL ================= -->
+
+    <div
+        id="clearConfirmModal"
+        class="modal-overlay hidden">
+
+
+        <div class="modal-box">
+
+
+            <h2>
+                Clear scan history?
+            </h2>
+
+
+            <p>
+                Are you sure you want to delete
+                <strong id="modalScanCount">
+                    0
+                </strong>
+                scan(s)?
+            </p>
+
+
+            <p>
+                This action cannot be undone.
+            </p>
+
+
+            <div class="modal-actions">
+
+
+                <button
+                    id="modalCancelButton"
+                    type="button"
+                    class="secondary-btn">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    id="modalConfirmButton"
+                    type="button"
+                    class="danger-btn">
+
+                    Clear History
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="storage.js"></script>
+
+    <script src="history.js"></script>
+
+</body>
+
+</html>
